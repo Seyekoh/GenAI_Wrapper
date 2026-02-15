@@ -34,6 +34,11 @@ window.HF_TOKEN = "hf_********************************";
 
 ## Temperature proof (assignment requirement)
 
+** NOTE **
+Requirements want temp from 0.0 - 2.0, but temp only works up to 1.5
+Will result in validation error if temp > 1.5
+**  **
+
 Use the same prompt:
 - set T=0.0 → more deterministic / less variation
 - set T=1.5 → more variation / creative outputs
