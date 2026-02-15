@@ -22,17 +22,15 @@ Open: http://localhost:8000
 
 ### Add your token (keep it out of GitHub)
 
-1) Copy the example:
-- `config.local.example.js` → `config.local.js`
+1) Create `config.local.js`
 
 2) Edit `config.local.js`:
+    - Add API Token to file with following format:
 ```js
 window.HF_TOKEN = "hf_********************************";
 ```
 
 `config.local.js` is in `.gitignore`, so it will not be committed.
-
-Alternatively, you can paste your token into the **Token** section in the UI (not saved).
 
 ## Temperature proof (assignment requirement)
 
