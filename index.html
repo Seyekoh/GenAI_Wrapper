@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prompt Proxy (Hugging Face)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>Prompt Proxy</h1>
+      <p class="subtle">Client-side prompt wrapper with persona + developer rules + temperature control (Hugging Face).</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Input</h2>
+
+      <label class="label" for="personaSelect">System Persona</label>
+      <select id="personaSelect" class="control"></select>
+
+      <div class="row">
+        <div class="col">
+          <label class="label" for="temperature">Temperature <span id="tempValue" class="pill">1.0</span></label>
+          <input id="temperature" class="control" type="range" min="0" max="2" value="1" step="0.1" />
+          <div class="hint">T=0 is deterministic. T≈1 is balanced. T&gt;1.5 is more creative/chaotic.</div>
+        </div>
+
+        <div class="col">
+          <label class="label" for="modelSelect">Model</label>
+          <select id="modelSelect" class="control">
+            <option value="meta-llama/Llama-3.1-8B-Instruct">meta-llama/Llama-3.1-8B-Instruct</option>
+            <option value="mistralai/Mistral-7B-Instruct-v0.3">mistralai/Mistral-7B-Instruct-v0.3</option>
+            <option value="Qwen/Qwen2.5-7B-Instruct">Qwen/Qwen2.5-7B-Instruct</option>
+          </select>
+          <div class="hint">If one model errors due to quota/availability, pick another.</div>
+        </div>
+      </div>
+
+      <label class="label" for="userInput">User Input</label>
+      <textarea id="userInput" class="control textarea" placeholder="Ask something..."></textarea>
+
+      <details class="details">
+        <summary>Token (local-only)</summary>
+        <p class="subtle">
+          Best practice is to keep your token out of GitHub. This app supports:
+          <strong>config.local.js</strong> (gitignored) or pasting below (not saved).
+        </p>
+        <label class="label" for="tokenInput">Hugging Face Token (hf_...)</label>
+        <input id="tokenInput" class="control" type="password" placeholder="hf_********************************" autocomplete="off" />
+        <div class="hint">Tip: create <code>config.local.js</code> with <code>window.HF_TOKEN = "hf_..."</code>.</div>
+      </details>
+
+      <div class="actions">
+        <button id="sendBtn" class="btn primary">Send</button>
+        <button id="clearBtn" class="btn">Clear</button>
+        <button id="demoBtn" class="btn">Load Demo Prompt</button>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h2>Result</h2>
+      <div class="resultBox">
+        <label class="label" for="responseOutput">Response</label>
+        <textarea id="responseOutput" class="control textarea" readonly placeholder="Model output will appear here..."></textarea>
+      </div>
+
+      <details class="details">
+        <summary>Debug: View the wrapped prompt</summary>
+        <pre id="debugPayload" class="pre"></pre>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Temperature Proof (quick)</h2>
+      <p class="subtle">
+        Run the same prompt twice: set T=0.0 and T=1.5+ and compare output differences.
+      </p>
+      <div class="row">
+        <button id="proofT0" class="btn">Set T=0.0</button>
+        <button id="proofT15" class="btn">Set T=1.5</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Optional local token injection (gitignored). See config.local.example.js -->
+  <script src="config.local.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
